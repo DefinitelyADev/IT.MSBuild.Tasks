@@ -1,0 +1,13 @@
+﻿<!--
+  NuGet automatically imports this file into any project that has a PackageReference to 'IT.MSBuild.Tasks'.
+
+  To see this in action, execute "dotnet restore" on the 3-NuGet example and look in the obj/ folder for
+  a file named Web.csproj.g.nuget.targets. You'll see inside that it contains an "Import" to this file.
+ -->
+<Project>
+  <PropertyGroup>
+    <_TaskAssembly>$(MSBuildThisFileDirectory)..\tools\netstandard2.1\IT.MSBuild.Tasks.dll</_TaskAssembly>
+  </PropertyGroup>
+
+  <UsingTask TaskName="IT.MSBuild.Tasks.UnzipTarGz" AssemblyFile="$(_TaskAssembly)" />
+</Project>
