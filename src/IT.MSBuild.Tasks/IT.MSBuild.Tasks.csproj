@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);PackBuildOutputs</TargetsForTfmSpecificContentInPackage>
+        <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+        <LangVersion>latestmajor</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Build.Framework" Version="17.5.0" />
+      <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.5.0" />
+      <PackageReference Include="SharpZipLib" Version="1.4.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Include="build\**">
+            <Pack>true</Pack>
+            <PackagePath>build\</PackagePath>
+        </None>
+        <None Include="buildCrossTargeting\**">
+            <Pack>true</Pack>
+            <PackagePath>buildCrossTargeting\</PackagePath>
+        </None>
+    </ItemGroup>
+
+    <ItemDefinitionGroup>
+        <PackageReference>
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <ProjectReference>
+            <PrivateAssets>all</PrivateAssets>
+        </ProjectReference>
+    </ItemDefinitionGroup>
+
+    <Import Project="$(MSBuildProjectName).targets" />
+</Project>

@@ -1,0 +1,28 @@
+﻿<Project>
+<!--    <Target Name="SetNuSpecProperties" BeforeTargets="GenerateNuspec" DependsOnTargets="UnzipTarGz">-->
+<!--        <PropertyGroup>-->
+<!--&lt;!&ndash;            <LibGit2SharpNativeBinaries>$(NuGetPackageRoot)libgit2sharp.nativebinaries\$(LibGit2SharpNativeVersion)\</LibGit2SharpNativeBinaries>&ndash;&gt;-->
+<!--&lt;!&ndash;            <NuspecProperties>$(NuspecProperties);Version=$(Version);commit=$(GitCommitId);BaseOutputPath=$(OutputPath);LibGit2SharpNativeBinaries=$(LibGit2SharpNativeBinaries)</NuspecProperties>&ndash;&gt;-->
+<!--&lt;!&ndash;            <NuspecProperties Condition=" '$(PackLKG)' == 'true' ">$(NuspecProperties);LKGSuffix=.LKG</NuspecProperties>&ndash;&gt;-->
+<!--        </PropertyGroup>-->
+<!--    </Target>-->
+
+    <Target Name="PackBuildOutputs" DependsOnTargets="SatelliteDllsProjectOutputGroup;DebugSymbolsProjectOutputGroup">
+<!--        <PropertyGroup>-->
+<!--            <BuildSubDir Condition=" '$(TargetFramework)' == 'net6.0' ">MSBuildCore\</BuildSubDir>-->
+<!--            <BuildSubDir Condition=" '$(TargetFramework)' == 'net462' ">MSBuildFull\</BuildSubDir>-->
+<!--        </PropertyGroup>-->
+<!--        <Error Text="Unrecognized TargetFramework" Condition=" '$(BuildSubDir)' == '' " />-->
+        <ItemGroup>
+            <TfmSpecificPackageFile Include="
+                        $(OutputPath)ICSharpCode.SharpZipLib.dll*;
+               ">
+                <PackagePath>build\</PackagePath>
+            </TfmSpecificPackageFile>
+            <!-- Package up the SharpZipLib native binaries -->
+            <TfmSpecificPackageFile Include="@(ContentWithTargetPath)" Condition=" '%(ContentWithTargetPath.CopyToOutputDirectory)' == 'PreserveNewest' ">
+                <PackagePath>build\%(ContentWithTargetPath.TargetPath)</PackagePath>
+            </TfmSpecificPackageFile>
+        </ItemGroup>
+    </Target>
+</Project>
